@@ -16,7 +16,7 @@ use flowy_collaboration::{
     errors::CollaborateError,
     protobuf::DocIdentifier,
 };
-use lib_infra::future::{BoxResultFuture, FutureResultSend};
+use lib_infra::future::BoxResultFuture;
 
 use flowy_collaboration::sync::{DocumentPersistence, ServerDocumentManager};
 use std::{
@@ -83,7 +83,7 @@ impl DocumentPersistence for DocumentPersistenceImpl {
             doc_id: doc_id.to_string(),
             ..Default::default()
         };
-        let persistence = self.0.clone();
+        let persistence = self.0.kv_store();
         Box::pin(async move {
             let mut pb_doc = read_document(&persistence, params)
                 .await

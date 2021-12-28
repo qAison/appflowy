@@ -88,7 +88,7 @@ impl DocumentWebSocketActor {
         match self.handle_revision(user, document_client_data).await {
             Ok(_) => {},
             Err(e) => {
-                tracing::error!("[DocumentWebSocketActor]: process client data error {:?}", e);
+                tracing::error!("[DocumentWebSocketActor]: process client data failed: {:?}", e);
             },
         }
         Ok(())
